@@ -26,7 +26,33 @@ jobs:
           - name: Perform Bandit Analysis
             uses: PyCQA/bandit-action@v1
 
-          # - name: zap scan
-          #   uses: zaproxy/action-full-scan@v0.13.0
-          #   with:
-          #     target: 'https://www.zaproxy.org/'
+          - name: Deploy for DAST analysis
+            uses: appleboy/ssh-action@v1
+            with:
+              host: ${{ secrets.DAST_HOST }}
+              username: ${{ secrets.DAST_USER }}
+              key: ${{ secrets.DAST_KEY }}
+              port: 22
+              script: |
+                git clone https://github.com/domikkkk/TBO_balbinka/
+                cd TBO_balbinka/Python/Flask_Book_Library
+                docker build -t balbinkatest .
+                docker run -p 5000:5000 --name dast -d balbinkatest
+
+          - name: zap scan
+            uses: zaproxy/action-full-scan@v0.13.0
+            with:
+              target: 'http://${{ secrets.HOST }}:5000'
+
+          - name: Teardown after DAST
+            uses: appleboy/ssh-action@v1
+            with:
+              host: ${{ secrets.DAST_HOST }}
+              username: ${{ secrets.DAST_USER }}
+              key: ${{ secrets.DAST_KEY }}
+              port: 22
+              script: |
+                docker stop dast
+                docker container rm dast
+                docker image rm balbinkatest
+                rm -rf TBO_balbinka
