@@ -16,7 +16,7 @@ jobs:
           - name: pip audit
             uses: pypa/gh-action-pip-audit@v1.0.0
             with:
-              inputs: requirements.txt
+              inputs: Python/Flask_Book_Library/requirements.txt
 
 
           - name: Perform Bandit Analysis
