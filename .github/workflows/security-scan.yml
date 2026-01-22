@@ -14,23 +14,18 @@ jobs:
             contents: read          
         steps:
           - name: Checkout repository
-            uses: actions/checkout@v4
-
-          - uses: actions/checkout@v6
-          - uses: actions/setup-python@v6
-            with:
-              python-version: '3.13' 
+            uses: actions/checkout@v6
 
           - name: pip audit
-            uses: pypa/gh-action-pip-audit@v1.0.0
+            uses: pypa/gh-action-pip-audit@v1.1.0
+            # continue-on-error: true   # do wyjebania
             with:
               inputs: Python/Flask_Book_Library/requirements.txt
-
 
           - name: Perform Bandit Analysis
             uses: PyCQA/bandit-action@v1
 
-          - name: zap scan
-            uses: zaproxy/action-full-scan@v0.13.0
-            with:
-              target: 'https://www.zaproxy.org/'
+          # - name: zap scan
+          #   uses: zaproxy/action-full-scan@v0.13.0
+          #   with:
+          #     target: 'https://www.zaproxy.org/'
