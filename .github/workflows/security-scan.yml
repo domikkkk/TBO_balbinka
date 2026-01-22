@@ -1,0 +1,31 @@
+name: security_scan
+
+on:
+  push:
+
+jobs:
+    security_scan:
+        runs-on: ubuntu-latest
+        permissions:
+            # Required for all workflows
+            security-events: write
+            # Only required for workflows in private repositories
+            actions: read
+            contents: read          
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v4
+
+          - name: pip audit
+            uses: pypa/gh-action-pip-audit@v1
+            with:
+              args: -r Python/Flask_Book_Library/requirements.txt
+
+
+          - name: Perform Bandit Analysis
+            uses: PyCQA/bandit-action@v1
+
+          - name: zap scan
+            uses: zaproxy/action-full-scan@v0.13.0
+            with:
+              target: 'https://www.zaproxy.org/'
