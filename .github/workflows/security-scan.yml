@@ -34,11 +34,11 @@ jobs:
               key: ${{ secrets.DAST_KEY }}
               port: 22
               script: |
-                git clone ${{ github.repository }}
+                git clone https://github.com/${{ github.repository }}
                 cd TBO_balbinka/Python/Flask_Book_Library
                 git checkout ${{ github.sha }}
                 docker build -t balbinkatest .
-                docker container rm dast
+                docker container rm --force dast
                 docker run -p 5000:5000 --name dast -d balbinkatest
 
           - name: zap scan
