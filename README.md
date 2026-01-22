@@ -1,4 +1,4 @@
-# Security By Design - Zadanie 1
+# Projekt `Balbinka`
 
 ## Wymagania
 1. Zainstalowana komenda `git` na stacji roboczej
