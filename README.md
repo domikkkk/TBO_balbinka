@@ -1,3 +1,3 @@
 # Projekt `Balbinka`
 
-here is my open source contribution
+Here is my open source contribution
