@@ -4,7 +4,6 @@ on:
   push:
 
 jobs:
-    steps:
     security_scan:
         runs-on: ubuntu-latest
         permissions:
