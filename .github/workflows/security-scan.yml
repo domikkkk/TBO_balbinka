@@ -18,7 +18,7 @@ jobs:
 
           - name: pip audit
             uses: pypa/gh-action-pip-audit@v1.1.0
-            continue-on-error: true   # do wyjebania
+            continue-on-error: true # do zmiany
             with:
               inputs: Python/Flask_Book_Library/requirements.txt
 
