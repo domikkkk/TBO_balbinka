@@ -47,6 +47,7 @@ jobs:
               target: 'http://${{ secrets.DAST_HOST }}:5000'
               allow_issue_writing: false
               fail_action: true
+              cmd_options: '-I'
 
           - name: Teardown after DAST
             if: always()
