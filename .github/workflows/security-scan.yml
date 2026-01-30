@@ -23,10 +23,9 @@ jobs:
             uses: pypa/gh-action-pip-audit@v1.1.0
             with:
               inputs: Python/Flask_Book_Library/requirements.txt
-          - name: bandit 
-            uses: shundor/bandit-action@v1.0
-            with: 
-                path: "."
+          - name: Bandit Scan
+          
+            uses: shundor/python-bandit-scan@v1.0
 
           - name: Deploy for DAST analysis
             uses: appleboy/ssh-action@v1
