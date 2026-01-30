@@ -21,3 +21,18 @@ Proces CICD zawiera kilka etapów:
 1. __Extract metadata__: Automatyczne generowanie tagów i etykiet dla obrazu Docker.
 
 1. __Build and push__: Zbudowanie finalnego obrazu i wypchnięcie go do rejestru Docker Hub.
+
+
+### Aby pobrać zbudowany obraz można wywołać:
+
+Z gałęzi main
+
+```sh
+docker pull balbinkapublisher/balbinka:latest
+```
+
+Z innej gałęzi
+
+```sh
+docker pull balbinkapublisher/balbinka:beta
+```
