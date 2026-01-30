@@ -20,16 +20,17 @@ jobs:
             uses: pypa/gh-action-pip-audit@v1.1.0
             with:
               inputs: Python/Flask_Book_Library/requirements.txt
-
-          - name: Perform Bandit Analysis
-            uses: PyCQA/bandit-action@v1.0.1
-
-          - name: Upload Bandit Artifact
-            uses: github/codeql-action/upload-sarif@v3
-            if: always()
+          
+          - name: Set up Python
+            uses: actions/setup-python@v5
             with:
-              sarif_file: results.sarif
-              category: bandit-scan
+              python-version: '3.10' 
+    
+          - name: Run Bandit
+            run: |
+              pip install bandit
+              cd Python/Flask_Book_Library
+              bandit -r .
 
           - name: Deploy for DAST analysis
             uses: appleboy/ssh-action@v1
