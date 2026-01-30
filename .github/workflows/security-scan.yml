@@ -26,14 +26,12 @@ jobs:
           - name: Bandit Scan
           
             uses: shundor/python-bandit-scan@v1.0
-            with:
-              path: "Python/Flask_Book_Library"
 
           - name: Upload Bandit Artifact
             uses: github/codeql-action/upload-sarif@v3
             if: always()
             with:
-              sarif_file: Python/Flask_Book_Library/results.sarif
+              sarif_file: results.sarif
 
           - name: Deploy for DAST analysis
             uses: appleboy/ssh-action@v1
