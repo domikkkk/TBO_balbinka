@@ -5,7 +5,6 @@ env:
   docker-tag: ${{ github.base_ref == 'main' && 'latest' || 'beta' }}
 concurrency:
   group: cicd-sast-dast-docker
-  cancel-in-progress: true
 jobs:
     security_scan:
         runs-on: ubuntu-latest
