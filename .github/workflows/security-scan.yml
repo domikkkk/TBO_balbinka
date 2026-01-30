@@ -24,7 +24,7 @@ jobs:
             with:
               inputs: Python/Flask_Book_Library/requirements.txt
           - name: bandit 
-            uses: shundor/bandit-action@v1
+            uses: shundor/bandit-action@v1.0
             with: 
                 path: "."
 
