@@ -3,6 +3,10 @@ name: security_scan
 on:
   push:
 
+concurrency:
+  group: cicd-sast-dast-docker
+  cancel-in-progress: true
+
 jobs:
     security_scan:
         runs-on: ubuntu-latest
@@ -77,8 +81,8 @@ jobs:
             id: push
             uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
             with:
-              context: .
-              file: ./Python/Flask_Book_Library/Dockerfile
+              context: ./Python/Flask_Book_Library/
+              file: ./Dockerfile
               push: true
               tags: ${{ steps.meta.outputs.tags }}
               labels: ${{ steps.meta.outputs.labels }}
