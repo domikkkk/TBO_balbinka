@@ -29,6 +29,7 @@ jobs:
             if: always()
             with:
               sarif_file: results.sarif
+              category: bandit-scan
 
           - name: Deploy for DAST analysis
             uses: appleboy/ssh-action@v1
