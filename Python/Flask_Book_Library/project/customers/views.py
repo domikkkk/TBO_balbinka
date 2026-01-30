@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, request, redirect, url_for, jsonify
+from flask import render_template, Blueprint, request, redirect, url_for, jsonify, render_template_string
 from project import db
 from project.customers.models import Customer
 from markupsafe import escape
@@ -34,6 +34,18 @@ def list_customers_json():
     customer_list = [{'name': customer.name, 'city': customer.city, 'age': customer.age} for customer in customers]
     return jsonify(customers=customer_list)
 
+@customers.app_template_filter("name_filter")
+def name_filter(fn, args):
+    print(type(fn))
+    print(repr(fn))
+    print(type(args))
+    print(repr(args))
+    return fn(args)
+
+@customers.route('/<int:customer_id>', methods=['GET'])
+def get_customer(customer_id):
+    customer = Customer.query.get(customer_id)
+    return render_template_string("name:" + customer.name + "city:" + customer.city + "street:" + customer.street)
 
 # Route to create a new customer
 @customers.route('/create', methods=['POST', 'GET'])
