@@ -22,7 +22,7 @@ jobs:
               inputs: Python/Flask_Book_Library/requirements.txt
 
           - name: Perform Bandit Analysis
-            uses: PyCQA/bandit-action@v1
+            uses: PyCQA/bandit-action@v1.0.1
 
           - name: Upload Bandit Artifact
             uses: github/codeql-action/upload-sarif@v3
