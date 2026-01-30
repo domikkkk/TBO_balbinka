@@ -2,7 +2,7 @@ name: security_scan
 on:
   push:
 env:
-  docker-tag: ${{ github.base_ref == 'main' && 'latest' || 'beta' }}
+  docker-tag: ${{ case(github.base_ref == 'main', 'latest', 'beta') }}
 concurrency:
   group: cicd-sast-dast-docker
 jobs:
