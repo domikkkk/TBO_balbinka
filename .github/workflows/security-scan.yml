@@ -24,6 +24,12 @@ jobs:
           - name: Perform Bandit Analysis
             uses: PyCQA/bandit-action@v1
 
+          - name: Upload Bandit Artifact
+            uses: github/codeql-action/upload-sarif@v3
+            if: always()
+            with:
+              sarif_file: results.sarif
+
           - name: Deploy for DAST analysis
             uses: appleboy/ssh-action@v1
             with:
