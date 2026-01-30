@@ -36,3 +36,8 @@ Z innej gałęzi
 ```sh
 docker pull balbinkapublisher/balbinka:beta
 ```
+
+## Zadanie 2
+- Sql injection: [job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21530939741)
+- SCA: [job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21531319782)
+
