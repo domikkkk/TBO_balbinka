@@ -39,6 +39,7 @@ docker pull balbinkapublisher/balbinka:beta
 ## Zadanie 2
 
 - Sql injection: [job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21530939741)
+
   Dodano podatność sql-injection przy dodawaniu książek przez dodanie endpointu w books:
   `Python/Flask_Book_Library/project/books/views.py`
   Podatność można było wykorzystać na przykład w następujący sposób.
