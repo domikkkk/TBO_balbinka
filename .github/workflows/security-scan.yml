@@ -23,6 +23,10 @@ jobs:
 
           - name: Perform Bandit Analysis
             uses: PyCQA/bandit-action@v1
+            with:
+              targets: "Python/Flask_Book_Library"
+              severity: "all"
+              confidence: "all"
 
           - name: Deploy for DAST analysis
             uses: appleboy/ssh-action@v1
