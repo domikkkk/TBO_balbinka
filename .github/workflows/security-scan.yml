@@ -26,6 +26,8 @@ jobs:
 
           - name: Perform Bandit Analysis
             uses: PyCQA/bandit-action@v1
+            with:
+              args: ""
 
           - name: Deploy for DAST analysis
             uses: appleboy/ssh-action@v1
