@@ -4,24 +4,23 @@
 
 Proces CICD zawiera kilka etapów:
 
-1. __Checkout repository__: Pobranie kodu źródłowego na maszynę GitHub Actions.
+1. **Checkout repository**: Pobranie kodu źródłowego na maszynę GitHub Actions.
 
-1. __pip audit__: Skanowanie bibliotek Pythona pod kątem znanych luk.
+1. **pip audit**: Skanowanie bibliotek Pythona pod kątem znanych luk.
 
-1. __Perform Bandit Analysis__: Statyczna analiza kodu pod kątem błędów bezpieczeństwa.
+1. **Perform Bandit Analysis**: Statyczna analiza kodu pod kątem błędów bezpieczeństwa.
 
-1. __Deploy for DAST analysis__: Zdalne uruchomienie aplikacji w Dockerze na serwerze zewnętrznym.
+1. **Deploy for DAST analysis**: Zdalne uruchomienie aplikacji w Dockerze na serwerze zewnętrznym.
 
-1. __zap scan__: Przeprowadzenie aktywnego ataku na działającą aplikację w celu wykrycia podatności runtime.
+1. **zap scan**: Przeprowadzenie aktywnego ataku na działającą aplikację w celu wykrycia podatności runtime.
 
-1. __Teardown after DAST__: Usunięcie kontenera, obrazu i plików projektu z zewnętrznego serwera po zakończeniu testów.
+1. **Teardown after DAST**: Usunięcie kontenera, obrazu i plików projektu z zewnętrznego serwera po zakończeniu testów.
 
-1. __Log in to Docker Hub__: Autoryzacja w rejestrze w celu  wysyłania obrazu.
+1. **Log in to Docker Hub**: Autoryzacja w rejestrze w celu wysyłania obrazu.
 
-1. __Extract metadata__: Automatyczne generowanie tagów i etykiet dla obrazu Docker.
+1. **Extract metadata**: Automatyczne generowanie tagów i etykiet dla obrazu Docker.
 
-1. __Build and push__: Zbudowanie finalnego obrazu i wypchnięcie go do rejestru Docker Hub.
-
+1. **Build and push**: Zbudowanie finalnego obrazu i wypchnięcie go do rejestru Docker Hub.
 
 ### Aby pobrać zbudowany obraz można wywołać:
 
@@ -38,6 +37,29 @@ docker pull balbinkapublisher/balbinka:beta
 ```
 
 ## Zadanie 2
-- Sql injection: [job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21530939741)
-- SCA: [job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21531319782)
 
+### Sql injection
+
+[job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21530939741)
+
+Dodano podatność sql-injection przy dodawaniu książek przez dodanie endpointu w books:
+`Python/Flask_Book_Library/project/books/views.py`
+Podatność można było wykorzystać na przykład w następujący sposób.
+![alt text](image.png)
+Skaner bandit wykrył tą podatność i zatrzymał wykonywania procesu.
+
+### Atak SCA
+
+[job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21531319782)
+
+Polega na wykorzystaniu podatności biblioteki jinja w wersji 3.1.2 (podatność polega na wykorzytaniu własnego filtra oraz funkcji render_template_string od flank)
+
+Aby wykonać atak:
+
+1. Dodaj nowego użytkownika w polu customer:
+
+name: `{% set f = ''.format %}`
+city: `{{ f | my_filter(payload) }} (payload to atak w stringu)`
+
+2. Przejdź do customers/[id] gdzie id to nowo dodany użytkownik
+3. Atak automatycznie się wykona
