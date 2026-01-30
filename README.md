@@ -38,7 +38,9 @@ docker pull balbinkapublisher/balbinka:beta
 
 ## Zadanie 2
 
-- Sql injection: [job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21530939741)
+### Sql injection
+
+[job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21530939741)
 
   Dodano podatność sql-injection przy dodawaniu książek przez dodanie endpointu w books:
   `Python/Flask_Book_Library/project/books/views.py`
@@ -46,4 +48,18 @@ docker pull balbinkapublisher/balbinka:beta
   ![alt text](image.png)
   Skaner bandit wykrył tą podatność i zatrzymał wykonywania procesu.
 
-- SCA: [job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21531319782)
+
+### Atak SCA
+
+[job](https://github.com/domikkkk/TBO_balbinka/actions/runs/21531319782)
+
+Polega na wykorzystaniu podatności biblioteki jinja w wersji 3.1.2 (podatność polega na wykorzytaniu własnego filtra oraz funkcji render_template_string od flank) 
+
+Aby wykonać atak:
+1. Dodaj nowego użytkownika w polu customer:
+
+name: `{% set f = ''.format %}`
+city: `{{ f | my_filter(payload) }} (payload to atak w stringu)`
+
+2. Przejdź do customers/[id] gdzie id to nowo dodany użytkownik
+3. Atak automatycznie się wykona
