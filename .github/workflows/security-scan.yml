@@ -18,23 +18,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-<<<<<<< HEAD
-          - name: pip audit
-            uses: pypa/gh-action-pip-audit@v1.1.0
-            with:
-              inputs: Python/Flask_Book_Library/requirements.txt
-          
-          - name: Set up Python
-            uses: actions/setup-python@v5
-            with:
-              python-version: '3.10' 
-    
-          - name: Run Bandit
-            run: |
-              pip install bandit
-              cd Python/Flask_Book_Library
-              bandit -r .
-=======
       - name: pip audit
         uses: pypa/gh-action-pip-audit@v1.1.0
         with:
@@ -49,7 +32,6 @@ jobs:
           pip install bandit
           cd Python/Flask_Book_Library
           bandit -r .
->>>>>>> main
 
       - name: Deploy for DAST analysis
         uses: appleboy/ssh-action@v1
